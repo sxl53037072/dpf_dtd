@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!ELEMENT transactions (sql* | transaction* | globalsql* )+>
+
+<!ELEMENT transaction (#PCDATA | include | trim | where | set | foreach | choose | if | bind | refer | sql | variable | parameter)*>
+<!ATTLIST transaction
+name CDATA #REQUIRED
+event CDATA #REQUIRED
+return CDATA #IMPLIED
+before CDATA #IMPLIED
+after CDATA #IMPLIED
+>
+
+<!-- Dynamic -->
+
+<!ELEMENT refer EMPTY>
+<!ATTLIST refer
+name CDATA #REQUIRED
+type CDATA #REQUIRED
+>
+
+<!ELEMENT variable (#PCDATA)*>
+<!ATTLIST variable
+name CDATA #REQUIRED
+>
+
+<!ELEMENT parameter (bind)+>
+<!ATTLIST parameter
+name CDATA #REQUIRED
+from CDATA #REQUIRED
+split CDATA #IMPLIED
+>
+
+<!ELEMENT include EMPTY>
+<!ATTLIST include
+refid CDATA #REQUIRED
+>
+
+<!ELEMENT bind (#PCDATA)*>
+<!ATTLIST bind
+ name CDATA #IMPLIED
+ value CDATA #IMPLIED
+>
+
+<!ELEMENT sql (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ATTLIST sql
+id CDATA #IMPLIED
+>
+
+<!ELEMENT globalsql (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ATTLIST globalsql
+id CDATA #IMPLIED
+>
+
+<!ELEMENT trim (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ATTLIST trim
+prefix CDATA #IMPLIED
+prefixOverrides CDATA #IMPLIED
+suffix CDATA #IMPLIED
+suffixOverrides CDATA #IMPLIED
+>
+<!ELEMENT where (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ELEMENT set (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+
+<!ELEMENT foreach (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ATTLIST foreach
+collection CDATA #REQUIRED
+item CDATA #IMPLIED
+index CDATA #IMPLIED
+open CDATA #IMPLIED
+close CDATA #IMPLIED
+separator CDATA #IMPLIED
+>
+
+<!ELEMENT choose (when* , otherwise?)>
+<!ELEMENT when (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ATTLIST when
+test CDATA #REQUIRED
+>
+<!ELEMENT otherwise (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+
+<!ELEMENT if (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ATTLIST if
+test CDATA #REQUIRED
+>
+
+
